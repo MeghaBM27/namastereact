@@ -1,0 +1,10 @@
+EPISODE:1
+-->in first episode we learn how to create an html elenments
+-->i learned how to create an element using js
+-->i learned how to add react library using cdn[https://legacy.reactjs.org/docs/cdn-links.html]
+-->i learned how to create an elements using react ,how to render
+-->i learned how to create if there is more childern,or more sigblings using react element.
+-->i learned what is crossorigin
+
+
+EPISODE:2
