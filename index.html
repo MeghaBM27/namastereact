@@ -8,35 +8,10 @@
   </head>
   <body>
     <div id="root">
-      <!-- normal html -->
-      <!-- <h1>hello world!</h1> -->
+      <!-- if we are wriiten anything then it will not append it will replace  -->
+      <h1>not render</h1> 
 
-      <!-- using javascript all js code we have to add in app js file  -->
-      <script>
-        // const heading = document.createElement("h1");
-        // heading.innerHTML = "namaste react in javascript";
-        // const root = document.getElementById("root");
-        // root.appendChild(heading);
-      </script>
-      <!-- first way of injecting into our project -->
-      <!--this is core of react framework algorithm  -->
-      <script
-        crossorigin
-        src="https://unpkg.com/react@18/umd/react.development.js"
-      ></script>
-      <!-- this is react dom to modify dom  -->
-      <script
-        crossorigin
-        src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-      ></script>
-      <!-- all js code we have to add in app js file -->
-      <script src="./app.js">
-        // const head =React.createElement("h1",{id:"heading"},"hello react!!")
-        // console.log(head)
-        // const rootName =  ReactDOM.createRoot(document.getElementById("root"))
-        // rootName.render(head)
-      </script>
-
+      <script type="module" src="./src/app.js"></script>
     </div>
   </body>
 </html>
