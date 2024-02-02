@@ -1,14 +1,18 @@
 import resList from "../utils/mockData";
-import RestoCard from "../component/RestoCard";
+import RestoCard, { aggregateDiscount } from "../component/RestoCard";
 import { useEffect, useState } from "react";
 import Shimmerui from "./ShimmerUi";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const BodySection = () => {
   const [listOfResto, setListOfResto] = useState([]);
   // const [listOfResto, setListOfResto] = useState(resList);
   const [inputValue, setInputValue] = useState("");
-  const [copyFilterList,setCopyFilterList]=useState([])
+  const [copyFilterList, setCopyFilterList] = useState([]);
 
+  const onlineStatus = useOnlineStatus();
+  const RestoCardAggregateDiscount = aggregateDiscount(RestoCard);
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,7 +25,9 @@ const BodySection = () => {
     setListOfResto(
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
-    setCopyFilterList(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setCopyFilterList(
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
 
     // this is not an goog way we use optional chaining
     console.log(
@@ -37,11 +43,20 @@ const BodySection = () => {
   if (listOfResto.length === 0) {
     return <Shimmerui />;
   }
- 
+
+  if (onlineStatus === false) {
+    return (
+      <div>
+        <h1>something went wrong please check your internet connection</h1>
+      </div>
+    );
+  }
+
   return (
-    <div className="resto-conatiner">
-      <div className="resto-search">
+    <div className="m-5 p-5">
+      <div className="flex items-center">
         <input
+          className="border-spacing-2 shadow-sm py-2 px-5"
           placeholder="search resto"
           type="text"
           value={inputValue}
@@ -52,34 +67,42 @@ const BodySection = () => {
         />
 
         <button
+          className="bg-green-200 rounded-lg shadow-sm py-2 px-5 m-5"
           onClick={() => {
             const filteredResto = listOfResto.filter((res) =>
               res.info.name.toLowerCase().includes(inputValue.toLowerCase())
             );
-          
-            setCopyFilterList(filteredResto)
+
+            setCopyFilterList(filteredResto);
           }}
         >
           search
         </button>
         <button
-          className="top-resto-filter"
+          className="bg-purple-200 py-2 px-5 rounded-lg"
           onClick={() => {
             const updateList = resList.filter((resto) => {
               return resto.info.avgRating > 4;
             });
-           
             setListOfResto(updateList);
-            console.log(updateList);
           }}
         >
           Top Rated Resto
         </button>
       </div>
 
-      <div className="resto-cards-container">
+      <div className="flex flex-wrap">
         {copyFilterList.map((restaurant) => (
-          <RestoCard key={restaurant.info.id} resData={restaurant} />
+          <Link
+            key={restaurant.info.id}
+            to={"/restomenu/" + restaurant.info.id}
+          >
+            {restaurant.info.aggregatedDiscountInfoV3 ? (
+              <RestoCardAggregateDiscount resData={restaurant}/>
+            ) : (
+              <RestoCard resData={restaurant} />
+            )}
+          </Link>
         ))}
       </div>
     </div>

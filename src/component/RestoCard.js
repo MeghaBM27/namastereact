@@ -15,8 +15,8 @@ const RestoCard = (props) => {
   
   
     return (
-      <div className="resto-single-card">
-        <img
+      <div className="w-[300px]  m-5 hover:bg-slate-100 ">
+        <img  className="h-[300px] w-[100%] rounded-lg"
           alt="resto-food"
           src={CDN_URL
             +
@@ -24,9 +24,9 @@ const RestoCard = (props) => {
           }
         />
         <div className="resto-details">
-          <h4>{name}</h4>
-          <div className="resto-rating">
-            <img
+          <h4 className="font-bold text-xl py-4">{name}</h4>
+          <div className="flex items-center ">
+            <img className="w-4"
               alt="rating-logo"
               src={RATING_URL}
             />
@@ -42,6 +42,20 @@ const RestoCard = (props) => {
     );
   };
 
+
+  export const aggregateDiscount =(RestoCard)=>{
+    return(props)=>{
+      const { resData } = props;
+      const { aggregatedDiscountInfoV3} =resData?.info;
+      return(
+        <div>
+          <h2 className="bg-black text-white m-5 absolute font-bold p-2">{aggregatedDiscountInfoV3.header} {aggregatedDiscountInfoV3.subHeader}</h2>
+     
+          <RestoCard {...props}/>
+        </div>
+      )
+    }
+  }
 
   export default RestoCard;
   
