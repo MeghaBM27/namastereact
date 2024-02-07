@@ -56,7 +56,7 @@ const BodySection = () => {
     <div className="m-5 p-5">
       <div className="flex items-center">
         <input
-          className="border-spacing-2 shadow-sm py-2 px-5"
+          className="border-spacing-2 shadow-sm py-2 px-5 border"
           placeholder="search resto"
           type="text"
           value={inputValue}
